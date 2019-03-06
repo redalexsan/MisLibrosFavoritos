@@ -53,6 +53,7 @@
             android:layout_marginStart="8dp"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
+            android:src="@mipmap/ic_launcher"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_launcher_background" />
 

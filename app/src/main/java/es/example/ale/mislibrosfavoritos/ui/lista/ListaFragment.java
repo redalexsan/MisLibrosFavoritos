@@ -1,10 +1,7 @@
 package es.example.ale.mislibrosfavoritos.ui.lista;
 
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,12 +27,12 @@ import es.example.ale.mislibrosfavoritos.data.RepositoryImpl;
 import es.example.ale.mislibrosfavoritos.data.local.AppDatabase;
 import es.example.ale.mislibrosfavoritos.data.local.LibroDao;
 import es.example.ale.mislibrosfavoritos.data.model.Libro;
-import es.example.ale.mislibrosfavoritos.databinding.FragmentListaBinding;
+import es.example.ale.mislibrosfavoritos.databinding.FragmentListContentBinding;
 
 
 public class ListaFragment extends Fragment {
 
-    private FragmentListaBinding binding;
+    private FragmentListContentBinding binding;
     private ListaFragmentViewModel viewModel;
     private NavController navController;
     private ListaFragmentAdapter listAdapter;
@@ -51,7 +48,7 @@ public class ListaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentListaBinding.inflate(inflater,container,false);
+        binding = FragmentListContentBinding.inflate(inflater,container,false);
         return binding.getRoot();
     }
 

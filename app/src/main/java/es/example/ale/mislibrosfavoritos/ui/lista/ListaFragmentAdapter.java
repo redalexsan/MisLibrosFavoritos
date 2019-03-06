@@ -10,11 +10,13 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import es.example.ale.mislibrosfavoritos.DataBottomSheetDialogFragment;
 import es.example.ale.mislibrosfavoritos.R;
 import es.example.ale.mislibrosfavoritos.data.model.Libro;
 
@@ -70,6 +72,13 @@ public class ListaFragmentAdapter extends ListAdapter<Libro, ListaFragmentAdapte
             autor = ViewCompat.requireViewById(itemView,R.id.lblAutor);
             fecha = ViewCompat.requireViewById(itemView,R.id.lblFecha);
             imagen = ViewCompat.requireViewById(itemView,R.id.imgLibro);
+            itemView.setOnClickListener(v -> showBottomSheetDialogFragment(getItem(getAdapterPosition())));
+        }
+
+        private void showBottomSheetDialogFragment(Libro item) {
+            DataBottomSheetDialogFragment.newInstance(item.getId()).show(
+                    ((AppCompatActivity) itemView.getContext()).getSupportFragmentManager(),DataBottomSheetDialogFragment.class.getSimpleName()
+            );
         }
 
         public void bind(Libro item) {

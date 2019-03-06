@@ -28,4 +28,6 @@ public class ListaFragmentViewModel extends ViewModel {
     public void insertLibro(Libro libro){
         repository.insertLibro(libro);
     }
+
+    public LiveData<Libro> queryLibro(long id){ return repository.queryLibro(id);}
 }
