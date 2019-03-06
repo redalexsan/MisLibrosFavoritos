@@ -10,4 +10,9 @@
         android:name="es.example.ale.mislibrosfavoritos.ui.lista.ListaFragment"
         android:label="Mis libros favoritos"
         tools:layout="@layout/fragment_lista" />
+    <fragment
+        android:id="@+id/agregarFragment"
+        android:name="es.example.ale.mislibrosfavoritos.ui.formulario.AgregarFragment"
+        android:label="Añadir Libro"
+        tools:layout="@layout/fragment_agregar" />
 </navigation>

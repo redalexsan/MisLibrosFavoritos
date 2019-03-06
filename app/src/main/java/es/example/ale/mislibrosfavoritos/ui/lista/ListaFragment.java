@@ -2,17 +2,15 @@ package es.example.ale.mislibrosfavoritos.ui.lista;
 
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
+import com.google.android.material.snackbar.Snackbar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -21,7 +19,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import es.example.ale.mislibrosfavoritos.R;
-import es.example.ale.mislibrosfavoritos.data.Repository;
 import es.example.ale.mislibrosfavoritos.data.RepositoryImpl;
 import es.example.ale.mislibrosfavoritos.data.local.AppDatabase;
 import es.example.ale.mislibrosfavoritos.data.local.LibroDao;
@@ -51,7 +48,10 @@ public class ListaFragment extends Fragment {
         RepositoryImpl repository = new RepositoryImpl(libroDao);
         viewModel = ViewModelProviders.of(this,new ListaFragmentViewModelFactory(repository)).get(ListaFragmentViewModel.class);
 
-        viewModel.getLibros().observe(this,libros -> listAdapter.submitList(libros));
+        viewModel.getLibros().observe(this,libros -> {
+            listAdapter.submitList(libros);
+            binding.lblEmptyView.setVisibility(libros.size() == 0 ? View.VISIBLE : View.INVISIBLE);
+        });
         initViews();
     }
 
@@ -71,12 +71,14 @@ public class ListaFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                viewModel.deleteLibro(listAdapter.getItem(viewHolder.getAdapterPosition()));
+                Libro libroBorrado = listAdapter.getItem(viewHolder.getAdapterPosition());
+                viewModel.deleteLibro(libroBorrado);
+                Snackbar.make(binding.lblEmptyView,getString(R.string.libroBorrado),Snackbar.LENGTH_SHORT)
+                        .setAction(getString(R.string.deshacer), v -> viewModel.insertLibro(libroBorrado)).show();
             }
         });
         itemTouchHelper.attachToRecyclerView(lstLibros);
 
-        Libro libro = new Libro("Titulo Prueba","Autor Prueba","2019","https://imagessl4.casadellibro.com/a/l/t0/84/9788490193884.jpg");
-        binding.btnFloat.setOnClickListener(v -> viewModel.insertLibro(libro));
+        binding.btnFloat.setOnClickListener(v -> navController.navigate(R.id.agregarFragment));
     }
 }

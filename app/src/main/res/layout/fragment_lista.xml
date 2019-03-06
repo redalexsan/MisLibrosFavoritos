@@ -34,6 +34,22 @@
             app:srcCompat="@android:drawable/ic_menu_add"
             android:focusable="true" />
 
+        <TextView
+            android:id="@+id/lblEmptyView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/main_margin_8dp"
+            android:layout_marginTop="@dimen/main_margin_8dp"
+            android:layout_marginEnd="@dimen/main_margin_8dp"
+            android:layout_marginBottom="@dimen/main_margin_8dp"
+            android:drawableTop="@drawable/ic_library_add_black_24dp"
+            android:drawablePadding="@dimen/main_size_16dp"
+            android:text="@string/main_not_books_yet"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -3,4 +3,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="campoVacio">Campo requerido</string>
+    <string name="titleDialog">Añadir libro</string>
+    <string name="messageDialog">¿Está seguro de guardar?</string>
+    <string name="main_not_books_yet">No hay libros en la lista</string>
+    <string name="libroBorrado">El libro se ha borrado correctamente</string>
+    <string name="deshacer">Deshacer</string>
 </resources>
