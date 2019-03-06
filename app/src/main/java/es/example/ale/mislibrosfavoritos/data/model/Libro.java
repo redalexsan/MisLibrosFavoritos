@@ -16,12 +16,22 @@ public class Libro {
     private String fecha;
     @ColumnInfo(name = "imagen")
     private String imagen;
+    @ColumnInfo(name = "sinopsis")
+    private String sinopsis;
 
     public Libro(String titulo, String autor, String fecha, String imagen) {
         this.titulo = titulo;
         this.autor = autor;
         this.fecha = fecha;
         this.imagen = imagen;
+    }
+
+    public String getSinopsis() {
+        return sinopsis;
+    }
+
+    public void setSinopsis(String sinopsis) {
+        this.sinopsis = sinopsis;
     }
 
     public long getId() {

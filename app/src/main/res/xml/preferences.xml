@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--<androidx.preference.SwitchPreferenceCompat-->
+        <!--android:defaultValue="@bool/prefNetworkMode_defaultValue"-->
+        <!--android:icon="@drawable/ic_warning_black"-->
+        <!--android:key="@string/prefNetworkMode_key"-->
+        <!--android:summaryOff="@string/prefNetworkMode_summaryOff"-->
+        <!--android:summaryOn="@string/prefNetworkMode_summaryOn"-->
+        <!--android:switchTextOff="@string/prefNetworkMode_switchTextOff"-->
+        <!--android:switchTextOn="@string/prefNetworkMode_switchTextOn"-->
+        <!--android:title="@string/prefNetworkMode_title"/>-->
+
+    <SwitchPreference
+        android:defaultValue="@bool/prefSync_defaultValue"
+        android:icon="@drawable/ic_warning_black_24dp"
+        android:key="@string/switchPref_key"
+        android:summaryOff="@string/prefSwitch_summaryOff"
+        android:summaryOn="@string/prefSwitch_summaryOn"
+        android:switchTextOff="@string/prefSwitch_switchTextOff"
+        android:switchTextOn="@string/prefSwitch_switchTextOn"
+        android:title="@string/prefSwitch_title"/>
+        />
+
+    <CheckBoxPreference
+        android:defaultValue="@bool/prefSync_defaultValue"
+        android:icon="@drawable/ic_check_black_24dp"
+        android:key="@string/prefCheck_key"
+        android:summaryOff="@string/prefCheck_summaryOff"
+        android:summaryOn="@string/prefCheck_summaryOn"
+        android:title="@string/prefCheck_title"/>
+
+</PreferenceScreen>

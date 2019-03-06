@@ -1,8 +1,14 @@
 package es.example.ale.mislibrosfavoritos.ui.lista;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,6 +24,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import es.example.ale.mislibrosfavoritos.MainActivityViewModel;
 import es.example.ale.mislibrosfavoritos.R;
 import es.example.ale.mislibrosfavoritos.data.RepositoryImpl;
 import es.example.ale.mislibrosfavoritos.data.local.AppDatabase;
@@ -32,6 +39,14 @@ public class ListaFragment extends Fragment {
     private ListaFragmentViewModel viewModel;
     private NavController navController;
     private ListaFragmentAdapter listAdapter;
+    private Boolean deshacerHabilitado = true;
+    private MainActivityViewModel activityViewModel;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +58,7 @@ public class ListaFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        activityViewModel = ViewModelProviders.of(requireActivity()).get(MainActivityViewModel.class);
         navController = NavHostFragment.findNavController(this);
         LibroDao libroDao = AppDatabase.getInstance(getContext()).libroDao();
         RepositoryImpl repository = new RepositoryImpl(libroDao);
@@ -53,6 +69,8 @@ public class ListaFragment extends Fragment {
             binding.lblEmptyView.setVisibility(libros.size() == 0 ? View.VISIBLE : View.INVISIBLE);
         });
         initViews();
+
+        activityViewModel.getDeshacer().observe(this, deshacer -> deshacerHabilitado = deshacer);
     }
 
     private void initViews() {
@@ -73,12 +91,27 @@ public class ListaFragment extends Fragment {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 Libro libroBorrado = listAdapter.getItem(viewHolder.getAdapterPosition());
                 viewModel.deleteLibro(libroBorrado);
-                Snackbar.make(binding.lblEmptyView,getString(R.string.libroBorrado),Snackbar.LENGTH_SHORT)
-                        .setAction(getString(R.string.deshacer), v -> viewModel.insertLibro(libroBorrado)).show();
+                if(deshacerHabilitado)
+                    Snackbar.make(binding.lblEmptyView,getString(R.string.libroBorrado),Snackbar.LENGTH_SHORT)
+                            .setAction(getString(R.string.deshacer), v -> viewModel.insertLibro(libroBorrado)).show();
+                else
+                    Snackbar.make(binding.lblEmptyView,getString(R.string.libroBorrado),Snackbar.LENGTH_SHORT).show();
             }
         });
         itemTouchHelper.attachToRecyclerView(lstLibros);
 
-        binding.btnFloat.setOnClickListener(v -> navController.navigate(R.id.agregarFragment));
+        binding.btnFloat.setOnClickListener(v -> navController.navigate(R.id.action_listaFragment_to_agregarFragment));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_settings,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        navController.navigate(R.id.action_listaFragment_to_settingsFragment);
+        return true;
     }
 }

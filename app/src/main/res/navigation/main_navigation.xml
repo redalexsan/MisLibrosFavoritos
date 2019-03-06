@@ -9,10 +9,22 @@
         android:id="@+id/listaFragment"
         android:name="es.example.ale.mislibrosfavoritos.ui.lista.ListaFragment"
         android:label="Mis libros favoritos"
-        tools:layout="@layout/fragment_lista" />
+        tools:layout="@layout/fragment_lista" >
+        <action
+            android:id="@+id/action_listaFragment_to_agregarFragment"
+            app:destination="@id/agregarFragment" />
+        <action
+            android:id="@+id/action_listaFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/agregarFragment"
         android:name="es.example.ale.mislibrosfavoritos.ui.formulario.AgregarFragment"
         android:label="Añadir Libro"
         tools:layout="@layout/fragment_agregar" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="es.example.ale.mislibrosfavoritos.ui.settings.SettingsFragment"
+        android:label="Configuración"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

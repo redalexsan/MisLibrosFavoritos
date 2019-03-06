@@ -9,4 +9,15 @@
     <string name="main_not_books_yet">No hay libros en la lista</string>
     <string name="libroBorrado">El libro se ha borrado correctamente</string>
     <string name="deshacer">Deshacer</string>
+    <string name="switchPref_key">Switch key</string>
+    <string name="prefSwitch_summaryOff">No</string>
+    <string name="prefSwitch_summaryOn">Si</string>
+    <string name="prefSwitch_switchTextOff">Deshacer Inhabilitado</string>
+    <string name="prefSwitch_switchTextOn">Deshacer habilitado</string>
+    <string name="prefSwitch_title">Deshacer borrado</string>
+    <string name="prefCheck_key">CheckBoxKey</string>
+    <string name="prefCheck_summaryOff">No</string>
+    <string name="prefCheck_summaryOn">No</string>
+    <string name="prefCheck_title">Confirmación de guardado</string>
+    <string name="main_settings">Configuración</string>
 </resources>

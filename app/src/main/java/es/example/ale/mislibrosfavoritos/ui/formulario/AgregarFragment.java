@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import es.example.ale.mislibrosfavoritos.MainActivityViewModel;
 import es.example.ale.mislibrosfavoritos.R;
 import es.example.ale.mislibrosfavoritos.data.RepositoryImpl;
 import es.example.ale.mislibrosfavoritos.data.local.AppDatabase;
@@ -36,6 +37,13 @@ public class AgregarFragment extends Fragment {
     private NavController navController;
     private FragmentAgregarBinding binding;
     private AgregarFragmentViewModel viewModel;
+    private MainActivityViewModel activityViewModel;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,6 +55,7 @@ public class AgregarFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        activityViewModel = ViewModelProviders.of(requireActivity()).get(MainActivityViewModel.class);
         navController = NavHostFragment.findNavController(this);
         LibroDao libroDao = AppDatabase.getInstance(getContext()).libroDao();
         RepositoryImpl repository = new RepositoryImpl(libroDao);
@@ -75,7 +84,10 @@ public class AgregarFragment extends Fragment {
         boolean validarURL = ValidationUtils.isValidUrl(binding.txtURL.getText().toString());
 
         if(validarTitulo && validarAutor && validarAnio && validarURL){
-            showDialog();
+            if(activityViewModel.isChequear())
+                showDialog();
+            else
+                insertLibro();
         }
         else{
             setError(binding.txtTitlulo,validarTitulo);
@@ -102,6 +114,9 @@ public class AgregarFragment extends Fragment {
     private void insertLibro() {
         String titulo = binding.txtTitlulo.getText().toString(), autor = binding.txtAutor.getText().toString(), anio = binding.txtAnio.getText().toString(), url = binding.txtURL.getText().toString();
         Libro libro = new Libro(titulo,autor,anio,url);
+
+        if(!TextUtils.isEmpty(binding.txtSinopsis.getText().toString()))
+            libro.setSinopsis(binding.txtSinopsis.getText().toString());
 
         viewModel.agregarLibro(libro);
         navController.popBackStack();
